@@ -1,0 +1,14 @@
+{
+    "require": {
+        "google/cloud-translate": "^1.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App",
+            "Test\\": "Test"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
