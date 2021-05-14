@@ -21,35 +21,32 @@ $destAbrv = 'it';
 //Key API
 $publicKey = '';
 
+//Version de CodeIgniter 3 = true 4 = false
+$version = false;
+
+//Servicio de traduccion que deseas utilizar (test, free, google)
+$servicio = 'google';
+
 //Generamos los path de los archivos
 $destPath = $langPath . DIRECTORY_SEPARATOR . $idiomaDestino;
 $orgPath  = $langPath . DIRECTORY_SEPARATOR . $idiomaOrigen;
 
-//Test
+//DTO para el caso de uso
+$useCaseOption = new \App\UseCase\TranslateUseCaseDTO($servicio,
+                    $orgPath, $destPath, $orgAbrv, 
+                    $destAbrv, $publicKey, $version);
 
-use Test\Services\FakeTranslationService;
-$fakeTranslator = new FakeTranslationService();
-$writer = new WriterService();
-$translator = new DirectoryTranslatorService($fakeTranslator, $writer);
-$translator(new DirectoryTranslatorOptions($orgPath, $destPath, $orgAbrv, $destAbrv, '',false));
+//Caso de uso a ejecutar
+$useCase = new App\UseCase\TranslateDirectoryUseCase();
+$useCase($useCaseOption);
 
-
-//Traductor API Google
-/*
-use App\Services\FreeGoogleTranslationService;
-
-$googleTranslator = new FreeGoogleTranslationService();
-$writer = new WriterService();
-$translator = new DirectoryTranslatorService($googleTranslator, $writer);
-$translator(new DirectoryTranslatorOptions($orgPath, $destPath, $orgAbrv, $destAbrv, $publicKey, false));
-*/
 //Contador de letras
 /*
 use App\Services\DirectoryCountService;
 
 $countServ = new DirectoryCountService();
 
-echo PHP_EOL.$countServ($orgPath, false);
+echo PHP_EOL.$countServ($orgPath, $version);
 */
 
 /**
