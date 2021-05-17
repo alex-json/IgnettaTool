@@ -2,12 +2,6 @@
 
 namespace CLI;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CountCommand
  *
@@ -16,7 +10,7 @@ namespace CLI;
 class CountCommand extends \Ahc\Cli\Input\Command {
 
     public function __construct() {
-        parent::__construct('count', 'Cuenta las letras de un directorio');
+        parent::__construct('count', 'Count the number of characters in all the files of the directory');
 
         $this
                 ->argument('<dir>', 'The full path of the language you want to count')
