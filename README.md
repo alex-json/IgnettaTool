@@ -24,6 +24,6 @@ php ignetta.php --help
 ~~~
 ## Translations option
 With de -s option you can choose between three translation services:
-- **test**: Very useful for try test the tool it translate all your phrases to FakeTranslation.
-- **free**: The free google translation service it have a limited number of petitions.
-- **google**: The Google Translate API for use it you need a google api key you can use it with de -k option.
+- **test**: Very useful for test the tool. It translate all your phrases to FakeTranslation.
+- **free**: The free google translation service. It have a limited number of petitions.
+- **google**: The Google Translate API for use it you need a google api key, you can use it with de -k option.
