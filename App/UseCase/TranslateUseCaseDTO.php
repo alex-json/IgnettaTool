@@ -20,7 +20,7 @@ class TranslateUseCaseDTO {
     private string $destPath;
     private string $orgAbrv;
     private string $destAbrv;
-    private string $key;
+    private ?string $key;
 
     /**
      * Define al version de CodeIgniter true 3 false 4
@@ -28,7 +28,7 @@ class TranslateUseCaseDTO {
      */
     private bool $version;
 
-    function __construct(string $service, string $orgPath, string $destPath, string $orgAbrv, string $destAbrv, string $key, bool $version) {
+    function __construct(bool $version, string $service, string $destPath, string $orgPath, string $orgAbrv, string $destAbrv, string $key = null) {
         $this->service  = $service;
         $this->orgPath  = $orgPath;
         $this->destPath = $destPath;
@@ -58,7 +58,7 @@ class TranslateUseCaseDTO {
         return $this->destAbrv;
     }
 
-    function getKey(): string {
+    function getKey(): ?string {
         return $this->key;
     }
 

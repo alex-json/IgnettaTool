@@ -11,7 +11,7 @@ class FreeGoogleTranslationService implements TranslatorInterface{
     
     static $count = 0;
     
-    static function translate(string $sl, string $lt, string $phrase, string $key): string 
+    static function translate(string $sl, string $lt, string $phrase, ?string $key): string 
     {
         if(FreeGoogleTranslationService::$count >= 15){
             $sleepAcum = mt_rand(30000,80000)/1000;
@@ -23,10 +23,11 @@ class FreeGoogleTranslationService implements TranslatorInterface{
         sleep($sleepTime);
         
         $url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=$sl&tl=$lt&dt=t&q=" . urlencode($phrase);
-        $resultado = file_get_contents($url);
+        $resultado = @file_get_contents($url);
         
-        if($resultado == null){
-            throw new Exception('Fallo en la consulta');
+        if($resultado === false){
+            $error = error_get_last();
+            throw new \Exception($error["message"]);
         }
         
         FreeGoogleTranslationService::$count ++;

@@ -16,7 +16,7 @@ use App\Services\DirectoryTranslatorService\DirectoryTranslatorOptions;
  */
 class TranslateDirectoryUseCase {
     
-    public function __invoke(TranslateUseCaseDTO $option) {
+    public function __invoke(TranslateUseCaseDTO $option, \Ahc\Cli\IO\Interactor $io) {
         
         switch($option->getService()){
             case 'test':
@@ -31,10 +31,10 @@ class TranslateDirectoryUseCase {
         }
 
         $writer = new WriterService();
-        $translator = new DirectoryTranslatorService($translator, $writer);
+        $translator = new DirectoryTranslatorService($translator, $writer, $io);
         $translator(new DirectoryTranslatorOptions($option->getOrgPath(), 
                 $option->getDestPath(), $option->getOrgAbrv(), 
-                $option->getDestAbrv(), $option->getKey(), 
+                $option->getDestAbrv(), $option->getVersion(),
                 $option->getKey())
                 );
     }

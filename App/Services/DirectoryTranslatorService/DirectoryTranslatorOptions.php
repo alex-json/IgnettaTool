@@ -32,7 +32,7 @@ class DirectoryTranslatorOptions {
      * Clave publica para la llamada a la API(opcional segun la API)
      * @var string
      */
-    private string $publicKey;
+    private ?string $publicKey;
 
     /**
      * Booleano que define la version de codeigniter, true para 3 false para 4
@@ -44,8 +44,8 @@ class DirectoryTranslatorOptions {
             string $destPath,
             string $orgLang,
             string $destLang,
-            string $publicKey = '',
-            bool $version = true
+            bool $version,
+            ?string $publicKey
     ) {
         $this->orgPath   = $orgPath;
         $this->destPath  = $destPath;

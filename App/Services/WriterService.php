@@ -17,7 +17,7 @@ class WriterService implements WriterInterface {
         $fh = fopen($filePath, "w");
 
         if (!is_resource($fh)) {
-            throw new Exception('No se ha podido crear el archivo de destino');
+            throw new \Exception('The target folder is not accessible');
         }
 
         fwrite($fh, "<?php\n");
