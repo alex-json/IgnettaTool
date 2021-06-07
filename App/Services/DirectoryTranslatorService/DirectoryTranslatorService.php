@@ -35,7 +35,7 @@ class DirectoryTranslatorService {
         include_once './auxFunctions.php';
         foreach (new \DirectoryIterator($options->orgPath) as $fileInfo) {
             //Por cada iteracion crea el nuevo archivo en la carpeta de destino
-            if ($fileInfo->isDot()) {
+            if ($fileInfo->getExtension() !== "php") {
                 continue;
             }
             

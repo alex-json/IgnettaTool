@@ -19,8 +19,7 @@ class DirectoryCountService {
 
         foreach (new \DirectoryIterator($path) as $fileInfo) {
             
-            //Por cada iteracion crea el nuevo archivo en la carpeta de destino
-            if ($fileInfo->isDot() || $fileInfo->isDir()) {
+            if ($fileInfo->getExtension() !== "php") {
                 continue;
             }
             
