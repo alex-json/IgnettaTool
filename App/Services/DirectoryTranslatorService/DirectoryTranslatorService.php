@@ -38,20 +38,21 @@ class DirectoryTranslatorService {
             if ($fileInfo->getExtension() !== "php") {
                 continue;
             }
-            
+
             //Cargamos el archivo
             if ($options->version) {
                 include_once $fileInfo->getPathname();
             } else {
                 $lang = $this->getArrayLang($fileInfo->getPathname());
             }
-            
-            if(!isset($lang)){
+
+            if (!isset($lang)) {
                 throw new \InvalidArgumentException('The CodeIgniter version of the file don\'t match with the selected version');
             }
-            
+
             foreach ($lang as $key => $value) {
-                $lang[$key] = $this->translator::translate($options->orgLang, $options->destLang, $value, $options->publicKey);
+
+                $lang[$key] = $this->serviceRequest($options, $value);
                 $this->io->greenBold('Translated: ', false);
                 $this->io->yellow($key, true);
                 $traduccionesCont++;
@@ -64,6 +65,33 @@ class DirectoryTranslatorService {
 
             $lang = [];
         }
+    }
+
+    private function serviceRequest(DirectoryTranslatorOptions $options, $value) {
+        $count      = 0;
+        $translated = null;
+
+        do {
+
+            if ($count > 3) {
+                throw new \Exception("To many retry sending the request");
+            }
+
+            try {
+
+                $translated = $this->translator::translate($options->orgLang, $options->destLang, $value, $options->publicKey);
+
+            } catch (\Exception $ex) {
+
+                $this->io->red("ERROR: " . $ex->getMessage(), true);
+                $this->io->yellow("Retrying send the request in 3seg", true);
+                sleep(3);
+            }
+            
+            $count ++;
+        } while ($translated === null);
+        
+        return $translated;
     }
 
     private function getArrayLang(string $filePath) {
